@@ -1,0 +1,17 @@
+{
+  "name": "projektppgift-fbw",
+  "version": "1.0.0",
+  "description": "",
+  "source": "src/index.html",
+  "browserlist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build src/main.js --out-dir dist"
+  },
+  "author": "Andreas Nygård",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "sharp": "^0.31.3"
+  }
+}
