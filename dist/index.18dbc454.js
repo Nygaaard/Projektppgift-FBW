@@ -579,6 +579,104 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"1SICI":[function(require,module,exports) {
+var _displayEvents = require("./displayEvents");
+(0, _displayEvents.displayEvents)();
+
+},{"./displayEvents":"6hVob"}],"6hVob":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "displayEvents", ()=>displayEvents);
+var _getEventsJs = require("./getEvents.js");
+const eventsEl = document.getElementById("events");
+async function displayEvents() {
+    const data = await (0, _getEventsJs.getEvents)();
+    if (!data) {
+        console.log("No data available");
+        return;
+    }
+    for(let i = 0; i <= 20; i++){
+        const image = data._embedded.events[i].images[3].url;
+        const name = data._embedded.events[i].name;
+        const date = data._embedded.events[i].dates.start.localDate;
+        const time = data._embedded.events[i].dates.start.localTime;
+        const city = data._embedded.events[i]._embedded.venues[0].city.name;
+        const venue = data._embedded.events[i]._embedded.venues[0].address.line1;
+        const minPrice = data._embedded.events[i].priceRanges[0].min;
+        const maxPrice = data._embedded.events[i].priceRanges[0].max;
+        const imageElement = document.createElement("img");
+        imageElement.src = image;
+        imageElement.classList.add("event-image");
+        const nameParagraph = document.createElement("p");
+        nameParagraph.textContent = "Event: " + name;
+        const dateParagraph = document.createElement("p");
+        dateParagraph.textContent = "Datum: " + date;
+        const timeParagraph = document.createElement("p");
+        timeParagraph.textContent = "Tid: " + time;
+        const cityParagraph = document.createElement("p");
+        cityParagraph.textContent = `Stad: ${city}`;
+        const venueParagraph = document.createElement("p");
+        venueParagraph.textContent = `Plats: ${venue}`;
+        const priceParagraph = document.createElement("p");
+        priceParagraph.textContent = `Biljetter finns f\xf6r priser mellan ${minPrice}-${maxPrice} kr`;
+        const container = document.createElement("div");
+        container.classList.add("event-div");
+        container.appendChild(imageElement);
+        container.appendChild(nameParagraph);
+        container.appendChild(dateParagraph);
+        container.appendChild(timeParagraph);
+        container.appendChild(cityParagraph);
+        container.appendChild(venueParagraph);
+        container.appendChild(priceParagraph);
+        eventsEl.appendChild(container);
+    }
+}
+
+},{"./getEvents.js":"fE4KM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fE4KM":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getEvents", ()=>getEvents);
+const url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq&countryCode=SE";
+async function getEvents() {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.log("error", error);
+        return null;
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
 
 },{}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
 
