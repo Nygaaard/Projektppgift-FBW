@@ -1,0 +1,49 @@
+@use "../abstracts/mixins.";
+@use "../abstracts/keyframes";
+
+.image-container {
+  @include mixins.flexMix();
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  margin-top: 1.5rem;
+}
+.oak-container {
+  position: relative;
+  width: 100%;
+}
+.oak {
+  width: 100%;
+  height: auto;
+}
+.apple {
+  width: 50px;
+  height: auto;
+  position: absolute;
+  top: 300px;
+  right: 120px;
+}
+.leaf {
+  @extend .apple;
+  top: 320px;
+  left: 100px;
+  color: red;
+}
+
+.artists {
+  width: 100px;
+  height: auto;
+  position: absolute;
+  top: 360;
+  left: 100;
+  animation: swing 2s linear infinite alternate;
+}
+
+@media all and (max-width: 768px) {
+  .leaf,
+  .apple,
+  .artists {
+    display: none;
+  }
+}

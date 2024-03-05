@@ -1,0 +1,17 @@
+@keyframes swing {
+  from {
+    transform: rotate(-20deg);
+  }
+  to {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes fallAndBlow {
+  0% {
+    transform: translateY(0) rotate(0);
+  }
+  100% {
+    transform: translateY(200px) rotate(-10deg);
+  }
+}

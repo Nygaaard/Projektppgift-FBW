@@ -11,12 +11,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
   </head>
   <body>
-    <header>
-      <h1 class="header-text">EventFinder</h1>
+    <header class="header">
+      <!-- <h1 class="header-text">EventFinder</h1> -->
     </header>
     <main>
-      <div class="events" id="events">
-        <h2>Evenemang</h2>
+      <div class="image-container">
+        <div class="oak-container">
+          <picture>
+            <source srcset="/oak-tree.81d301fa.webp" type="image/webp" class="oak">
+            <img src="/oak-tree.53700d83.png" alt="Ekträd" class="oak">
+          </picture>
+          <picture>
+            <source srcset="/leaf.98078927.webp" type="image/webp" class="apple">
+            <img src="/leaf.59be0409.png" alt="Blad" class="apple">
+          </picture>
+          <picture>
+            <source srcset="/leaf.98078927.webp" type="image/webp" class="leaf">
+            <img src="/leaf.59be0409.png" alt="Löv" class="leaf">
+          </picture>
+          <picture>
+            <source srcset="/artists.d2c39504.webp" type="image/webp" class="artists">
+            <img src="/artists.e9279ed3.png" alt="Artister" class="artists">
+          </picture>
+        </div>
+      </div>
+
+      <div class="search-container">
+        <div class="search-div">
+          <label for="search"><b>Sök evenemang efter stad</b></label>
+          <input type="search" id="search">
+        </div>
+        <h2 class="popular">Populära evenemang i Sverige</h2>
+        <div class="events" id="events"></div>
       </div>
     </main>
   </body>

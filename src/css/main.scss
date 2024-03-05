@@ -1,1 +1,10 @@
 @use "./layout/body.scss";
+@use "./layout/header.scss";
+@use "./layout/images.scss";
+
+@use "./pages/index.scss";
+
+@use "./abstracts/keyframes";
+@use "./abstracts/variables";
+@use "./abstracts/mixins.";
+@use "./abstracts/animations.scss";

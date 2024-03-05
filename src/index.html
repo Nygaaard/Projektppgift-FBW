@@ -14,12 +14,54 @@
     />
   </head>
   <body>
-    <header>
-      <h1 class="header-text">EventFinder</h1>
+    <header class="header">
+      <!-- <h1 class="header-text">EventFinder</h1> -->
     </header>
     <main>
-      <div class="events" id="events">
-        <h2>Evenemang</h2>
+      <div class="image-container">
+        <div class="oak-container">
+          <picture>
+            <source
+              srcset="./images/oak-tree.png?as=webp"
+              type="image/webp"
+              class="oak"
+            />
+            <img src="./images/oak-tree.png" alt="Ekträd" class="oak" />
+          </picture>
+          <picture>
+            <source
+              srcset="./images/leaf.png?as=webp"
+              type="image/webp"
+              class="apple"
+            />
+            <img src="./images/leaf.png" alt="Blad" class="apple" />
+          </picture>
+          <picture>
+            <source
+              srcset="./images/leaf.png?as=webp"
+              type="image/webp"
+              class="leaf"
+            />
+            <img src="./images/leaf.png" alt="Löv" class="leaf" />
+          </picture>
+          <picture>
+            <source
+              srcset="./images/artists.png?as=webp"
+              type="image/webp"
+              class="artists"
+            />
+            <img src="./images/artists.png" alt="Artister" class="artists" />
+          </picture>
+        </div>
+      </div>
+
+      <div class="search-container">
+        <div class="search-div">
+          <label for="search"><b>Sök evenemang efter stad</b></label>
+          <input type="search" id="search" />
+        </div>
+        <h2 class="popular">Populära evenemang i Sverige</h2>
+        <div class="events" id="events"></div>
       </div>
     </main>
   </body>

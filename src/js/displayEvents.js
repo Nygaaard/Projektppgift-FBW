@@ -10,15 +10,19 @@ export async function displayEvents() {
     return;
   }
 
-  for (let i = 0; i <= 20; i++) {
+  for (let i = 0; i < data._embedded.events.length; i++) {
     const image = data._embedded.events[i].images[3].url;
     const name = data._embedded.events[i].name;
     const date = data._embedded.events[i].dates.start.localDate;
     const time = data._embedded.events[i].dates.start.localTime;
     const city = data._embedded.events[i]._embedded.venues[0].city.name;
     const venue = data._embedded.events[i]._embedded.venues[0].address.line1;
-    const minPrice = data._embedded.events[i].priceRanges[0].min;
-    const maxPrice = data._embedded.events[i].priceRanges[0].max;
+    const minPrice = data._embedded.events[i].priceRanges
+      ? data._embedded.events[i].priceRanges[0].min
+      : "Ej tillgängligt";
+    const maxPrice = data._embedded.events[i].priceRanges
+      ? data._embedded.events[i].priceRanges[0].max
+      : "Ej tillgängligt";
 
     const imageElement = document.createElement("img");
     imageElement.src = image;
