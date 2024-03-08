@@ -646,7 +646,6 @@ async function getEvents() {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (error) {
         console.log("Error", error);
@@ -687,9 +686,7 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "showInfo", ()=>showInfo);
-var _displayEvents = require("./displayEvents");
 const searchContainerEl = document.getElementById("search-container");
-const eventsEl = document.getElementById("events");
 async function showInfo(data) {
     searchContainerEl.innerHTML = "";
     const image = data.images[7].url;
@@ -756,6 +753,6 @@ async function showInfo(data) {
     searchContainerEl.appendChild(backButton);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./displayEvents":"6hVob"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
 
 //# sourceMappingURL=index.18dbc454.js.map

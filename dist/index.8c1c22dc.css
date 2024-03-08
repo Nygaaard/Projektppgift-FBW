@@ -88,6 +88,16 @@ body {
   }
 }
 
+@keyframes rotate {
+  from {
+    transform: rotateY(0);
+  }
+
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
 .image-container {
   flex-direction: column;
   justify-content: center;
@@ -124,7 +134,7 @@ body {
 }
 
 .artists {
-  width: 100px;
+  width: 70px;
   height: auto;
   animation: 2s linear infinite alternate swing;
   position: absolute;
@@ -137,8 +147,16 @@ body {
   height: auto;
 }
 
+.female {
+  height: absolute;
+  width: 70px;
+  position: absolute;
+  top: 390px;
+  left: 459px;
+}
+
 @media (width <= 768px) {
-  .leaf, .apple, .artists {
+  .leaf, .apple, .artists, .female {
     display: none;
   }
 
@@ -149,6 +167,10 @@ body {
   .larger-image {
     width: 100%;
     margin: 0 auto;
+  }
+
+  .oak {
+    width: 90%;
   }
 }
 
@@ -176,6 +198,17 @@ footer {
   height: auto;
   position: absolute;
   top: -25px;
+}
+
+@media (width <= 768px) {
+  footer {
+    flex-direction: column;
+    font-size: .7rem;
+  }
+
+  .footer-flex {
+    padding: 1rem;
+  }
 }
 
 .event-image {
@@ -280,7 +313,7 @@ footer {
   }
 
   .event-image {
-    width: 130px;
+    width: 80%;
     height: auto;
   }
 
@@ -299,6 +332,14 @@ footer {
   .specific-event h2 {
     font-size: 1.2rem;
   }
+
+  .events {
+    width: 100%;
+  }
+
+  #search {
+    width: 60%;
+  }
 }
 
 .apple, .leaf {
@@ -315,6 +356,10 @@ footer {
 
 .dancers {
   animation: 10s linear infinite alternate roll;
+}
+
+.female {
+  animation: 2s linear infinite alternate rotate;
 }
 
 .button {

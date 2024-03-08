@@ -87,7 +87,7 @@ h3 {
     width: calc(90% - 10px);
   }
   .event-image {
-    width: 130px;
+    width: 80%;
     height: auto;
   }
   .popular {
@@ -101,5 +101,11 @@ h3 {
   }
   .specific-event h2 {
     font-size: 1.2rem;
+  }
+  .events {
+    width: 100%;
+  }
+  #search {
+    width: 60%;
   }
 }

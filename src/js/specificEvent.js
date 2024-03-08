@@ -1,7 +1,4 @@
-import { displayEvents } from "./displayEvents";
-
 const searchContainerEl = document.getElementById("search-container");
-const eventsEl = document.getElementById("events");
 
 export async function showInfo(data) {
   searchContainerEl.innerHTML = "";

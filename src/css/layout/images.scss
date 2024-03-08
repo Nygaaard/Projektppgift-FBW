@@ -32,7 +32,7 @@
 }
 
 .artists {
-  width: 100px;
+  width: 70px;
   height: auto;
   position: absolute;
   top: 360;
@@ -44,11 +44,19 @@
   width: 800px;
   height: auto;
 }
+.female {
+  width: 70px;
+  height: absolute;
+  position: absolute;
+  top: 390;
+  left: 459;
+}
 
 @media all and (max-width: 768px) {
   .leaf,
   .apple,
-  .artists {
+  .artists,
+  .female {
     display: none;
   }
 
@@ -58,5 +66,8 @@
   .larger-image {
     width: 100%;
     margin: 0 auto;
+  }
+  .oak {
+    width: 90%;
   }
 }
