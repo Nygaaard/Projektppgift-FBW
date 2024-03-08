@@ -30,18 +30,18 @@ export async function displayEvents() {
     nameParagraph.textContent = name;
 
     const description = document.createElement("p");
-    description.textContent = `${date} har ni möjlighet att få uppleva detta live.\n
+    description.textContent = `${date} har du möjlighet att få uppleva detta live.\n
     Tryck på länken nedan för mer information!
     `;
+    description.classList.add("description-text");
 
     const linkElement = document.createElement("a");
     linkElement.textContent = `Visa mer`;
-    linkElement.setAttribute("id", `event-link-${id}`);
+    linkElement.setAttribute("id", `event-link-$d{i}`);
     linkElement.classList.add("event-link");
     linkElement.onclick = async function () {
       const response = await fetch(url + id + apiKey);
       const data = await response.json();
-      console.log(data);
       showInfo(data);
     };
 

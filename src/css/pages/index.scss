@@ -52,21 +52,25 @@ h3 {
   padding: 5px;
   margin-top: 1rem;
 }
-#event-link {
+.event-link {
   margin-top: 30px;
   text-decoration: underline;
   padding: 0.1rem;
 }
-#event-link:hover {
+.event-link:hover {
   color: #5a3f3f;
 }
-#event-link:active {
+.event-link:active {
   color: #000;
 }
 
 .specific-event p {
   padding: 0.4rem;
   font-size: 1.3rem;
+}
+.description-text {
+  width: 70%;
+  text-align: center;
 }
 @media all and (max-width: 1400px) {
   .event-div {
@@ -88,5 +92,14 @@ h3 {
   }
   .popular {
     font-size: 1rem;
+  }
+  .description-text {
+    width: 100%;
+  }
+  .specific-event p {
+    font-size: 1rem;
+  }
+  .specific-event h2 {
+    font-size: 1.2rem;
   }
 }

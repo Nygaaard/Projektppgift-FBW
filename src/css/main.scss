@@ -9,3 +9,6 @@
 @use "./abstracts/variables";
 @use "./abstracts/mixins.";
 @use "./abstracts/animations.scss";
+
+@use "./components/button.scss";
+@use "./components/map.scss";

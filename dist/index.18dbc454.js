@@ -612,18 +612,18 @@ async function displayEvents() {
         const nameParagraph = document.createElement("h3");
         nameParagraph.textContent = name;
         const description = document.createElement("p");
-        description.textContent = `${date} har ni m\xf6jlighet att f\xe5 uppleva detta live.
+        description.textContent = `${date} har du m\xf6jlighet att f\xe5 uppleva detta live.
 
     Tryck p\xe5 l\xe4nken nedan f\xf6r mer information!
     `;
+        description.classList.add("description-text");
         const linkElement = document.createElement("a");
         linkElement.textContent = `Visa mer`;
-        linkElement.setAttribute("id", `event-link-${id}`);
+        linkElement.setAttribute("id", `event-link-$d{i}`);
         linkElement.classList.add("event-link");
         linkElement.onclick = async function() {
             const response = await fetch(url + id + apiKey);
             const data = await response.json();
-            console.log(data);
             (0, _specificEventJs.showInfo)(data);
         };
         const container = document.createElement("div");
@@ -687,7 +687,9 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "showInfo", ()=>showInfo);
+var _displayEvents = require("./displayEvents");
 const searchContainerEl = document.getElementById("search-container");
+const eventsEl = document.getElementById("events");
 async function showInfo(data) {
     searchContainerEl.innerHTML = "";
     const image = data.images[7].url;
@@ -697,6 +699,7 @@ async function showInfo(data) {
     const venue = data._embedded.venues[0].address.line1;
     const city = data._embedded.venues[0].city.name;
     let price = "";
+    const ticket = data.url;
     if (data.priceRanges && data.priceRanges.length > 0) price = `Pris fr\xe5n ${data.priceRanges[0].min} kr.`;
     else price = "Priset \xe4r inte tillg\xe4ngligt f\xf6r tillf\xe4llet.";
     const container = document.createElement("div");
@@ -716,20 +719,27 @@ async function showInfo(data) {
     cityParagraph.textContent = `Stad: ${city}`;
     const priceParagraph = document.createElement("p");
     priceParagraph.textContent = price;
+    const ticketParagraph = document.createElement("p");
+    ticketParagraph.innerHTML = `Mer info om biljetter hittar du <a href="${ticket}" target="_blank">h\xe4r</a>`;
     const mapContainer = document.createElement("div");
-    // Skapa iframe och dess innehåll som tidigare
     var iframe = document.createElement("iframe");
-    iframe.width = "425";
-    iframe.height = "350";
+    iframe.width = "600";
+    iframe.height = "auto";
     iframe.src = "https://www.openstreetmap.org/export/embed.html?bbox=17.99519777297974%2C59.36479301060465%2C18.031032085418705%2C59.37461049342961&amp;layer=mapnik";
     iframe.style.border = "1px solid black";
+    iframe.classList.add("map");
     var br = document.createElement("br");
     var small = document.createElement("small");
     var link = document.createElement("a");
     link.href = "https://www.openstreetmap.org/#map=16/59.3697/18.0131";
     link.textContent = "Visa st\xf6rre karta";
     small.appendChild(link);
-    // Lägg till iframe, br och small-elementet i map-container
+    const backButton = document.createElement("button");
+    backButton.textContent = "Tillbaka";
+    backButton.classList.add("button");
+    backButton.addEventListener("click", function() {
+        location.reload();
+    });
     mapContainer.appendChild(iframe);
     mapContainer.appendChild(br);
     mapContainer.appendChild(small);
@@ -740,10 +750,12 @@ async function showInfo(data) {
     container.appendChild(venueParagraph);
     container.appendChild(cityParagraph);
     container.appendChild(priceParagraph);
+    container.appendChild(ticketParagraph);
     container.appendChild(mapContainer);
     searchContainerEl.appendChild(container);
+    searchContainerEl.appendChild(backButton);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./displayEvents":"6hVob"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
 
 //# sourceMappingURL=index.18dbc454.js.map

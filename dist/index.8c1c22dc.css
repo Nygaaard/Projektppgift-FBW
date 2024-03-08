@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+body {
+  font-family: Roboto, sans-serif;
+}
+
 .header {
   text-align: center;
 }
@@ -141,6 +145,11 @@
   .event-image {
     margin: 0 auto;
   }
+
+  .larger-image {
+    width: 100%;
+    margin: 0 auto;
+  }
 }
 
 footer {
@@ -229,23 +238,28 @@ footer {
   padding: 5px;
 }
 
-#event-link {
+.event-link {
   margin-top: 30px;
   padding: .1rem;
   text-decoration: underline;
 }
 
-#event-link:hover {
+.event-link:hover {
   color: #5a3f3f;
 }
 
-#event-link:active {
+.event-link:active {
   color: #000;
 }
 
 .specific-event p {
   padding: .4rem;
   font-size: 1.3rem;
+}
+
+.description-text {
+  text-align: center;
+  width: 70%;
 }
 
 @media (width <= 1400px) {
@@ -273,6 +287,18 @@ footer {
   .popular {
     font-size: 1rem;
   }
+
+  .description-text {
+    width: 100%;
+  }
+
+  .specific-event p {
+    font-size: 1rem;
+  }
+
+  .specific-event h2 {
+    font-size: 1.2rem;
+  }
 }
 
 .apple, .leaf {
@@ -289,6 +315,33 @@ footer {
 
 .dancers {
   animation: 10s linear infinite alternate roll;
+}
+
+.button {
+  background-color: beige;
+  width: 100px;
+  height: 40px;
+  margin-top: 1.5rem;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #d6d6b1;
+}
+
+.button:active {
+  background-color: beige;
+}
+
+.map {
+  width: 500px;
+  height: 360px;
+}
+
+@media (width <= 768px) {
+  .map {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=index.8c1c22dc.css.map */

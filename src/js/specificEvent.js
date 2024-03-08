@@ -1,4 +1,7 @@
+import { displayEvents } from "./displayEvents";
+
 const searchContainerEl = document.getElementById("search-container");
+const eventsEl = document.getElementById("events");
 
 export async function showInfo(data) {
   searchContainerEl.innerHTML = "";
@@ -10,6 +13,7 @@ export async function showInfo(data) {
   const venue = data._embedded.venues[0].address.line1;
   const city = data._embedded.venues[0].city.name;
   let price = "";
+  const ticket = data.url;
 
   if (data.priceRanges && data.priceRanges.length > 0) {
     price = `Pris från ${data.priceRanges[0].min} kr.`;
@@ -42,15 +46,18 @@ export async function showInfo(data) {
   const priceParagraph = document.createElement("p");
   priceParagraph.textContent = price;
 
+  const ticketParagraph = document.createElement("p");
+  ticketParagraph.innerHTML = `Mer info om biljetter hittar du <a href="${ticket}" target="_blank">här</a>`;
+
   const mapContainer = document.createElement("div");
 
-  // Skapa iframe och dess innehåll som tidigare
   var iframe = document.createElement("iframe");
-  iframe.width = "425";
-  iframe.height = "350";
+  iframe.width = "600";
+  iframe.height = "auto";
   iframe.src =
     "https://www.openstreetmap.org/export/embed.html?bbox=17.99519777297974%2C59.36479301060465%2C18.031032085418705%2C59.37461049342961&amp;layer=mapnik";
   iframe.style.border = "1px solid black";
+  iframe.classList.add("map");
 
   var br = document.createElement("br");
 
@@ -60,7 +67,14 @@ export async function showInfo(data) {
   link.textContent = "Visa större karta";
   small.appendChild(link);
 
-  // Lägg till iframe, br och small-elementet i map-container
+  const backButton = document.createElement("button");
+  backButton.textContent = "Tillbaka";
+  backButton.classList.add("button");
+
+  backButton.addEventListener("click", function () {
+    location.reload();
+  });
+
   mapContainer.appendChild(iframe);
   mapContainer.appendChild(br);
   mapContainer.appendChild(small);
@@ -72,7 +86,9 @@ export async function showInfo(data) {
   container.appendChild(venueParagraph);
   container.appendChild(cityParagraph);
   container.appendChild(priceParagraph);
+  container.appendChild(ticketParagraph);
   container.appendChild(mapContainer);
 
   searchContainerEl.appendChild(container);
+  searchContainerEl.appendChild(backButton);
 }
