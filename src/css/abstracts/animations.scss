@@ -12,3 +12,7 @@
 .event-div:hover {
   animation: scaleDiv 1s ease forwards;
 }
+
+.dancers {
+  animation: roll 10s linear infinite alternate;
+}

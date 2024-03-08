@@ -580,14 +580,18 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"1SICI":[function(require,module,exports) {
 var _displayEvents = require("./displayEvents");
+var _specificEvent = require("./specificEvent");
 (0, _displayEvents.displayEvents)();
 
-},{"./displayEvents":"6hVob"}],"6hVob":[function(require,module,exports) {
+},{"./displayEvents":"6hVob","./specificEvent":"7tafX"}],"6hVob":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayEvents", ()=>displayEvents);
 var _getEventsJs = require("./getEvents.js");
+var _specificEventJs = require("./specificEvent.js");
 const eventsEl = document.getElementById("events");
+const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
+const url = `https://app.ticketmaster.com/discovery/v2/events/`;
 async function displayEvents() {
     const data = await (0, _getEventsJs.getEvents)();
     if (!data) {
@@ -595,47 +599,49 @@ async function displayEvents() {
         return;
     }
     for(let i = 0; i < data._embedded.events.length; i++){
+        const id = data._embedded.events[i].id;
         const image = data._embedded.events[i].images[3].url;
         const name = data._embedded.events[i].name;
         const date = data._embedded.events[i].dates.start.localDate;
         const time = data._embedded.events[i].dates.start.localTime;
         const city = data._embedded.events[i]._embedded.venues[0].city.name;
         const venue = data._embedded.events[i]._embedded.venues[0].address.line1;
-        const minPrice = data._embedded.events[i].priceRanges ? data._embedded.events[i].priceRanges[0].min : "Ej tillg\xe4ngligt";
-        const maxPrice = data._embedded.events[i].priceRanges ? data._embedded.events[i].priceRanges[0].max : "Ej tillg\xe4ngligt";
         const imageElement = document.createElement("img");
         imageElement.src = image;
         imageElement.classList.add("event-image");
-        const nameParagraph = document.createElement("p");
-        nameParagraph.textContent = "Event: " + name;
-        const dateParagraph = document.createElement("p");
-        dateParagraph.textContent = "Datum: " + date;
-        const timeParagraph = document.createElement("p");
-        timeParagraph.textContent = "Tid: " + time;
-        const cityParagraph = document.createElement("p");
-        cityParagraph.textContent = `Stad: ${city}`;
-        const venueParagraph = document.createElement("p");
-        venueParagraph.textContent = `Plats: ${venue}`;
-        const priceParagraph = document.createElement("p");
-        priceParagraph.textContent = `Biljetter finns f\xf6r priser mellan ${minPrice}-${maxPrice} kr`;
+        const nameParagraph = document.createElement("h3");
+        nameParagraph.textContent = name;
+        const description = document.createElement("p");
+        description.textContent = `${date} har ni m\xf6jlighet att f\xe5 uppleva detta live.
+
+    Tryck p\xe5 l\xe4nken nedan f\xf6r mer information!
+    `;
+        const linkElement = document.createElement("a");
+        linkElement.textContent = `Visa mer`;
+        linkElement.setAttribute("id", `event-link-${id}`);
+        linkElement.classList.add("event-link");
+        linkElement.onclick = async function() {
+            const response = await fetch(url + id + apiKey);
+            const data = await response.json();
+            console.log(data);
+            (0, _specificEventJs.showInfo)(data);
+        };
         const container = document.createElement("div");
         container.classList.add("event-div");
+        container.setAttribute("id", `event-div-${id}`);
         container.appendChild(imageElement);
         container.appendChild(nameParagraph);
-        container.appendChild(dateParagraph);
-        container.appendChild(timeParagraph);
-        container.appendChild(cityParagraph);
-        container.appendChild(venueParagraph);
-        container.appendChild(priceParagraph);
+        container.appendChild(description);
+        container.appendChild(linkElement);
         eventsEl.appendChild(container);
     }
 }
 
-},{"./getEvents.js":"fE4KM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fE4KM":[function(require,module,exports) {
+},{"./getEvents.js":"fE4KM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./specificEvent.js":"7tafX"}],"fE4KM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getEvents", ()=>getEvents);
-const url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq&countryCode=SE&size=39";
+const url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq&countryCode=SE";
 async function getEvents() {
     try {
         const response = await fetch(url);
@@ -643,8 +649,7 @@ async function getEvents() {
         console.log(data);
         return data;
     } catch (error) {
-        console.log("error", error);
-        return null;
+        console.log("Error", error);
     }
 }
 
@@ -678,6 +683,67 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
+},{}],"7tafX":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "showInfo", ()=>showInfo);
+const searchContainerEl = document.getElementById("search-container");
+async function showInfo(data) {
+    searchContainerEl.innerHTML = "";
+    const image = data.images[7].url;
+    const name = data.name;
+    const date = data.dates.start.localDate;
+    const time = data.dates.start.localTime;
+    const venue = data._embedded.venues[0].address.line1;
+    const city = data._embedded.venues[0].city.name;
+    let price = "";
+    if (data.priceRanges && data.priceRanges.length > 0) price = `Pris fr\xe5n ${data.priceRanges[0].min} kr.`;
+    else price = "Priset \xe4r inte tillg\xe4ngligt f\xf6r tillf\xe4llet.";
+    const container = document.createElement("div");
+    container.classList.add("specific-event");
+    const imageElement = document.createElement("img");
+    imageElement.src = image;
+    imageElement.classList.add("larger-image");
+    const nameParagraph = document.createElement("h2");
+    nameParagraph.textContent = name;
+    const dateParagraph = document.createElement("p");
+    dateParagraph.textContent = `Datum: ${date}`;
+    const timeParagraph = document.createElement("p");
+    timeParagraph.textContent = `Tid: ${time}`;
+    const venueParagraph = document.createElement("p");
+    venueParagraph.textContent = `Plats: ${venue}`;
+    const cityParagraph = document.createElement("p");
+    cityParagraph.textContent = `Stad: ${city}`;
+    const priceParagraph = document.createElement("p");
+    priceParagraph.textContent = price;
+    const mapContainer = document.createElement("div");
+    // Skapa iframe och dess innehåll som tidigare
+    var iframe = document.createElement("iframe");
+    iframe.width = "425";
+    iframe.height = "350";
+    iframe.src = "https://www.openstreetmap.org/export/embed.html?bbox=17.99519777297974%2C59.36479301060465%2C18.031032085418705%2C59.37461049342961&amp;layer=mapnik";
+    iframe.style.border = "1px solid black";
+    var br = document.createElement("br");
+    var small = document.createElement("small");
+    var link = document.createElement("a");
+    link.href = "https://www.openstreetmap.org/#map=16/59.3697/18.0131";
+    link.textContent = "Visa st\xf6rre karta";
+    small.appendChild(link);
+    // Lägg till iframe, br och small-elementet i map-container
+    mapContainer.appendChild(iframe);
+    mapContainer.appendChild(br);
+    mapContainer.appendChild(small);
+    container.appendChild(imageElement);
+    container.appendChild(nameParagraph);
+    container.appendChild(dateParagraph);
+    container.appendChild(timeParagraph);
+    container.appendChild(venueParagraph);
+    container.appendChild(cityParagraph);
+    container.appendChild(priceParagraph);
+    container.appendChild(mapContainer);
+    searchContainerEl.appendChild(container);
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
 
 //# sourceMappingURL=index.18dbc454.js.map

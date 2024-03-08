@@ -40,10 +40,19 @@
   animation: swing 2s linear infinite alternate;
 }
 
+.larger-image {
+  width: 800px;
+  height: auto;
+}
+
 @media all and (max-width: 768px) {
   .leaf,
   .apple,
   .artists {
     display: none;
+  }
+
+  .event-image {
+    margin: 0 auto;
   }
 }

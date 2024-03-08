@@ -40,3 +40,26 @@
     border-radius: 10px;
   }
 }
+
+@keyframes roll {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+    left: 0;
+  }
+  25% {
+    transform: translateY(-50%) rotate(180deg);
+    left: calc(50% - 25px);
+  }
+  50% {
+    transform: translateY(-50%) rotate(360deg);
+    left: calc(100% - 50px);
+  }
+  75% {
+    transform: translateY(-50%) rotate(540deg);
+    left: calc(50% - 25px);
+  }
+  100% {
+    transform: translateY(-50%) rotate(720deg);
+    left: 0;
+  }
+}

@@ -1,0 +1,23 @@
+footer {
+  background-color: rgb(238, 186, 118);
+  min-height: 60px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 100px;
+  position: relative;
+}
+.footer-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+  align-items: center;
+}
+.dancers {
+  width: 50px;
+  height: auto;
+  position: absolute;
+  top: -25;
+}

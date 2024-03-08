@@ -1,6 +1,9 @@
 import { getEvents } from "./getEvents.js";
+import { showInfo } from "./specificEvent.js";
 
 const eventsEl = document.getElementById("events");
+const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
+const url = `https://app.ticketmaster.com/discovery/v2/events/`;
 
 export async function displayEvents() {
   const data = await getEvents();
@@ -11,51 +14,45 @@ export async function displayEvents() {
   }
 
   for (let i = 0; i < data._embedded.events.length; i++) {
+    const id = data._embedded.events[i].id;
     const image = data._embedded.events[i].images[3].url;
     const name = data._embedded.events[i].name;
     const date = data._embedded.events[i].dates.start.localDate;
     const time = data._embedded.events[i].dates.start.localTime;
     const city = data._embedded.events[i]._embedded.venues[0].city.name;
     const venue = data._embedded.events[i]._embedded.venues[0].address.line1;
-    const minPrice = data._embedded.events[i].priceRanges
-      ? data._embedded.events[i].priceRanges[0].min
-      : "Ej tillgängligt";
-    const maxPrice = data._embedded.events[i].priceRanges
-      ? data._embedded.events[i].priceRanges[0].max
-      : "Ej tillgängligt";
 
     const imageElement = document.createElement("img");
     imageElement.src = image;
     imageElement.classList.add("event-image");
 
-    const nameParagraph = document.createElement("p");
-    nameParagraph.textContent = "Event: " + name;
+    const nameParagraph = document.createElement("h3");
+    nameParagraph.textContent = name;
 
-    const dateParagraph = document.createElement("p");
-    dateParagraph.textContent = "Datum: " + date;
+    const description = document.createElement("p");
+    description.textContent = `${date} har ni möjlighet att få uppleva detta live.\n
+    Tryck på länken nedan för mer information!
+    `;
 
-    const timeParagraph = document.createElement("p");
-    timeParagraph.textContent = "Tid: " + time;
-
-    const cityParagraph = document.createElement("p");
-    cityParagraph.textContent = `Stad: ${city}`;
-
-    const venueParagraph = document.createElement("p");
-    venueParagraph.textContent = `Plats: ${venue}`;
-
-    const priceParagraph = document.createElement("p");
-    priceParagraph.textContent = `Biljetter finns för priser mellan ${minPrice}-${maxPrice} kr`;
+    const linkElement = document.createElement("a");
+    linkElement.textContent = `Visa mer`;
+    linkElement.setAttribute("id", `event-link-${id}`);
+    linkElement.classList.add("event-link");
+    linkElement.onclick = async function () {
+      const response = await fetch(url + id + apiKey);
+      const data = await response.json();
+      console.log(data);
+      showInfo(data);
+    };
 
     const container = document.createElement("div");
     container.classList.add("event-div");
+    container.setAttribute("id", `event-div-${id}`);
 
     container.appendChild(imageElement);
     container.appendChild(nameParagraph);
-    container.appendChild(dateParagraph);
-    container.appendChild(timeParagraph);
-    container.appendChild(cityParagraph);
-    container.appendChild(venueParagraph);
-    container.appendChild(priceParagraph);
+    container.appendChild(description);
+    container.appendChild(linkElement);
 
     eventsEl.appendChild(container);
   }
