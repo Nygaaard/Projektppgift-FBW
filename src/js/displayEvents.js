@@ -31,7 +31,7 @@ export async function displayEvents() {
 
     const description = document.createElement("p");
     description.textContent = `${date} har du möjlighet att få uppleva detta live.\n
-    Tryck på länken nedan för mer information!
+    Tryck på länken nedan för mer information.
     `;
     description.classList.add("description-text");
 

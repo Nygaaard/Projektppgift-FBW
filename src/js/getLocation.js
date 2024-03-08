@@ -6,7 +6,6 @@ export async function getLocation(cityName) {
     const data = await response.json();
     const latitude = data[0].lat;
     const longitude = data[0].lon;
-    console.log(latitude, longitude);
     return { latitude, longitude };
   } catch (error) {
     console.log("Error fetching coordinates:", error);

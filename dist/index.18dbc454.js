@@ -614,7 +614,7 @@ async function displayEvents() {
         const description = document.createElement("p");
         description.textContent = `${date} har du m\xf6jlighet att f\xe5 uppleva detta live.
 
-    Tryck p\xe5 l\xe4nken nedan f\xf6r mer information!
+    Tryck p\xe5 l\xe4nken nedan f\xf6r mer information.
     `;
         description.classList.add("description-text");
         const linkElement = document.createElement("a");

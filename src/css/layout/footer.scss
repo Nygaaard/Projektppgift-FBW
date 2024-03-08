@@ -26,9 +26,14 @@ footer {
 @media all and (max-width: 768px) {
   footer {
     flex-direction: column;
-    font-size: 0.7rem;
   }
   .footer-flex {
     padding: 1rem;
+  }
+}
+
+@media all and (max-width: 500px) {
+  footer {
+    font-size: 0.7rem;
   }
 }

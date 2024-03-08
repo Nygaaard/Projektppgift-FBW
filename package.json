@@ -6,7 +6,7 @@
   "browserlist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "start": "parcel",
-    "build": "parcel build src/main.js --out-dir dist"
+    "build": "parcel build"
   },
   "author": "Andreas Nygård",
   "license": "ISC",
