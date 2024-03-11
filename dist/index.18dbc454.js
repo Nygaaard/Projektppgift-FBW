@@ -580,10 +580,11 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"1SICI":[function(require,module,exports) {
 var _displayEvents = require("./displayEvents");
-var _specificEvent = require("./specificEvent");
+var _searchEvents = require("./searchEvents");
 (0, _displayEvents.displayEvents)();
+(0, _searchEvents.search)();
 
-},{"./displayEvents":"6hVob","./specificEvent":"7tafX"}],"6hVob":[function(require,module,exports) {
+},{"./displayEvents":"6hVob","./searchEvents":"dQPAD"}],"6hVob":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayEvents", ()=>displayEvents);
@@ -592,6 +593,10 @@ var _specificEventJs = require("./specificEvent.js");
 const eventsEl = document.getElementById("events");
 const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
 const url = `https://app.ticketmaster.com/discovery/v2/events/`;
+let isOnEvent = false;
+let time;
+let city;
+let venue;
 async function displayEvents() {
     const data = await (0, _getEventsJs.getEvents)();
     if (!data) {
@@ -603,9 +608,11 @@ async function displayEvents() {
         const image = data._embedded.events[i].images[3].url;
         const name = data._embedded.events[i].name;
         const date = data._embedded.events[i].dates.start.localDate;
-        const time = data._embedded.events[i].dates.start.localTime;
-        const city = data._embedded.events[i]._embedded.venues[0].city.name;
-        const venue = data._embedded.events[i]._embedded.venues[0].address.line1;
+        if (isOnEvent) {
+            time = data._embedded.events[i].dates.start.localTime;
+            city = data._embedded.events[i]._embedded.venues[0].city.name;
+            venue = data._embedded.events[i]._embedded.venues[0].address.line1;
+        }
         const imageElement = document.createElement("img");
         imageElement.src = image;
         imageElement.classList.add("event-image");
@@ -622,6 +629,7 @@ async function displayEvents() {
         linkElement.setAttribute("id", `event-link-$d{i}`);
         linkElement.classList.add("event-link");
         linkElement.onclick = async function() {
+            isOnEvent = true;
             const response = await fetch(url + id + apiKey);
             const data = await response.json();
             (0, _specificEventJs.showInfo)(data);
@@ -686,6 +694,7 @@ exports.export = function(dest, destName, get) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "showInfo", ()=>showInfo);
+var _getLocation = require("./getLocation");
 const searchContainerEl = document.getElementById("search-container");
 async function showInfo(data) {
     searchContainerEl.innerHTML = "";
@@ -722,13 +731,13 @@ async function showInfo(data) {
     var iframe = document.createElement("iframe");
     iframe.width = "600";
     iframe.height = "auto";
-    iframe.src = "https://www.openstreetmap.org/export/embed.html?bbox=17.99519777297974%2C59.36479301060465%2C18.031032085418705%2C59.37461049342961&amp;layer=mapnik";
     iframe.style.border = "1px solid black";
     iframe.classList.add("map");
-    var br = document.createElement("br");
-    var small = document.createElement("small");
-    var link = document.createElement("a");
-    link.href = "https://www.openstreetmap.org/#map=16/59.3697/18.0131";
+    iframe.setAttribute("id", "iFrame");
+    const br = document.createElement("br");
+    const small = document.createElement("small");
+    const link = document.createElement("a");
+    link.setAttribute("id", "big-map");
     link.textContent = "Visa st\xf6rre karta";
     small.appendChild(link);
     const backButton = document.createElement("button");
@@ -737,6 +746,8 @@ async function showInfo(data) {
     backButton.addEventListener("click", function() {
         location.reload();
     });
+    const markerCoords = data._embedded.venues[0].location;
+    (0, _getLocation.getLocation)(data._embedded.venues[0].city.name, markerCoords);
     mapContainer.appendChild(iframe);
     mapContainer.appendChild(br);
     mapContainer.appendChild(small);
@@ -752,6 +763,50 @@ async function showInfo(data) {
     searchContainerEl.appendChild(container);
     searchContainerEl.appendChild(backButton);
 }
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./getLocation":"6CnMS"}],"6CnMS":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getLocation", ()=>getLocation);
+async function getLocation(cityName, markerCoords) {
+    const openStreetMapUrl = `https://nominatim.openstreetmap.org/search?q=${cityName}&format=json`;
+    try {
+        const response = await fetch(openStreetMapUrl);
+        const data = await response.json();
+        //Hämtar ut första resultatet i data-arrayen ifall flera resultat hittas
+        // const markerCoords = { lat: data[0].lat, long: data[0].lon };
+        printMap(data[0].boundingbox, markerCoords, data[0].name);
+    } catch (error) {
+        console.log("Error", error);
+        throw error;
+    }
+}
+function printMap(boundingBox, markerCoords, locationName) {
+    const iFrameEl = document.getElementById("iFrame");
+    iFrameEl.src = `https://www.openstreetmap.org/export/embed.html?bbox=${boundingBox[2]}%2C${boundingBox[0]}%2C${boundingBox[3]}%2C${boundingBox[1]}&amp;layer=mapnik&marker=${markerCoords.latitude},${markerCoords.longitude}`;
+    const bigMapEl = document.getElementById("big-map");
+    bigMapEl.href = `https://www.openstreetmap.org/search?query=${locationName}/${markerCoords.latitude}/${markerCoords.longitude}`;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dQPAD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "search", ()=>search);
+const searchButtonEl = document.getElementById("search-button");
+const searchEl = document.getElementById("search");
+const url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq&countryCode=SE&size=172";
+function search() {
+    searchButtonEl.addEventListener("click", async function() {
+        try {
+            const response = await fetch(`${url}&city=${searchEl.value}`);
+            const data = await response.json();
+            printEvents(data);
+        } catch (error) {
+            console.log("Error", error);
+        }
+    });
+}
+function printEvents() {}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
 

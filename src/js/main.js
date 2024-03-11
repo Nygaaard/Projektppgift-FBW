@@ -1,4 +1,5 @@
 import { displayEvents } from "./displayEvents";
-import { showInfo } from "./specificEvent";
+import { search } from "./searchEvents";
 
 displayEvents();
+search();

@@ -1,3 +1,5 @@
+import { getLocation } from "./getLocation";
+
 const searchContainerEl = document.getElementById("search-container");
 
 export async function showInfo(data) {
@@ -51,16 +53,16 @@ export async function showInfo(data) {
   var iframe = document.createElement("iframe");
   iframe.width = "600";
   iframe.height = "auto";
-  iframe.src =
-    "https://www.openstreetmap.org/export/embed.html?bbox=17.99519777297974%2C59.36479301060465%2C18.031032085418705%2C59.37461049342961&amp;layer=mapnik";
+
   iframe.style.border = "1px solid black";
   iframe.classList.add("map");
+  iframe.setAttribute("id", "iFrame");
 
-  var br = document.createElement("br");
+  const br = document.createElement("br");
 
-  var small = document.createElement("small");
-  var link = document.createElement("a");
-  link.href = "https://www.openstreetmap.org/#map=16/59.3697/18.0131";
+  const small = document.createElement("small");
+  const link = document.createElement("a");
+  link.setAttribute("id", "big-map");
   link.textContent = "Visa större karta";
   small.appendChild(link);
 
@@ -71,6 +73,8 @@ export async function showInfo(data) {
   backButton.addEventListener("click", function () {
     location.reload();
   });
+  const markerCoords = data._embedded.venues[0].location;
+  getLocation(data._embedded.venues[0].city.name, markerCoords);
 
   mapContainer.appendChild(iframe);
   mapContainer.appendChild(br);
