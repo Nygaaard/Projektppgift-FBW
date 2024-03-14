@@ -1,5 +1,6 @@
 import { getEvents } from "./getEvents.js";
 import { showInfo } from "./specificEvent.js";
+import { scrollToTop } from "./scrollToTop.js";
 
 const eventsEl = document.getElementById("events");
 const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
@@ -50,6 +51,7 @@ export async function displayEvents() {
       const response = await fetch(url + id + apiKey);
       const data = await response.json();
       showInfo(data);
+      scrollToTop();
     };
 
     const container = document.createElement("div");

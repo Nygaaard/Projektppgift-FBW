@@ -13,3 +13,8 @@
   box-shadow: 1px 0px 0px 0px;
   border-radius: 3px;
 }
+@media all and (max-width: 500px) {
+  #search {
+    width: 80%;
+  }
+}

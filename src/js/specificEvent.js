@@ -52,7 +52,7 @@ export async function showInfo(data) {
   const mapContainer = document.createElement("div");
   mapContainer.classList.add("map-container");
 
-  var iframe = document.createElement("iframe");
+  let iframe = document.createElement("iframe");
   iframe.width = "600";
   iframe.height = "auto";
 
@@ -65,6 +65,7 @@ export async function showInfo(data) {
   const small = document.createElement("small");
   const link = document.createElement("a");
   link.setAttribute("id", "big-map");
+  link.setAttribute("target", "_blank");
   link.textContent = "Visa större karta";
   small.appendChild(link);
 

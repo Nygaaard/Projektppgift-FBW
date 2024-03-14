@@ -1,10 +1,12 @@
 import { showInfo } from "./specificEvent.js";
+import { scrollToTop } from "./scrollToTop.js";
 
 const searchButtonEl = document.getElementById("search-button");
 const searchEl = document.getElementById("search");
 const eventsEl = document.getElementById("events");
 const popularEl = document.getElementById("popular");
 const buttonContainerEl = document.getElementById("button-container");
+const cityEl = document.getElementById("cityName");
 
 const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
 const searchUrl = `https://app.ticketmaster.com/discovery/v2/events/`;
@@ -18,7 +20,10 @@ export function search() {
     try {
       const response = await fetch(`${url}&city=${searchEl.value}`);
       const data = await response.json();
-      popularEl.innerHTML = `Evenemang i ${searchEl.value}`;
+      popularEl.textContent = `Evenemang i `;
+      cityEl.textContent = `${searchEl.value}`;
+      popularEl.appendChild(cityEl);
+
       buttonContainerEl.innerHTML = "";
       const backButton = document.createElement("button");
       backButton.textContent = "Tillbaka";
@@ -79,6 +84,7 @@ function printEvents(data) {
       const response = await fetch(searchUrl + id + apiKey);
       const data = await response.json();
       showInfo(data);
+      scrollToTop();
     };
 
     const container = document.createElement("div");

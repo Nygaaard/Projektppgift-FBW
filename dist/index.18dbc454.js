@@ -581,15 +581,18 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"1SICI":[function(require,module,exports) {
 var _displayEvents = require("./displayEvents");
 var _searchEvents = require("./searchEvents");
+var _scrollToTop = require("./scrollToTop");
 (0, _displayEvents.displayEvents)();
 (0, _searchEvents.search)();
+(0, _scrollToTop.scrollToTop)();
 
-},{"./displayEvents":"6hVob","./searchEvents":"dQPAD"}],"6hVob":[function(require,module,exports) {
+},{"./displayEvents":"6hVob","./searchEvents":"dQPAD","./scrollToTop":"fuss5"}],"6hVob":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "displayEvents", ()=>displayEvents);
 var _getEventsJs = require("./getEvents.js");
 var _specificEventJs = require("./specificEvent.js");
+var _scrollToTopJs = require("./scrollToTop.js");
 const eventsEl = document.getElementById("events");
 const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
 const url = `https://app.ticketmaster.com/discovery/v2/events/`;
@@ -633,6 +636,7 @@ async function displayEvents() {
             const response = await fetch(url + id + apiKey);
             const data = await response.json();
             (0, _specificEventJs.showInfo)(data);
+            (0, _scrollToTopJs.scrollToTop)();
         };
         const container = document.createElement("div");
         container.classList.add("event-div");
@@ -645,7 +649,7 @@ async function displayEvents() {
     }
 }
 
-},{"./getEvents.js":"fE4KM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./specificEvent.js":"7tafX"}],"fE4KM":[function(require,module,exports) {
+},{"./getEvents.js":"fE4KM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./specificEvent.js":"7tafX","./scrollToTop.js":"fuss5"}],"fE4KM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getEvents", ()=>getEvents);
@@ -730,7 +734,7 @@ async function showInfo(data) {
     ticketParagraph.innerHTML = `Mer info om biljetter hittar du <a href="${ticket}" target="_blank">h\xe4r</a>`;
     const mapContainer = document.createElement("div");
     mapContainer.classList.add("map-container");
-    var iframe = document.createElement("iframe");
+    let iframe = document.createElement("iframe");
     iframe.width = "600";
     iframe.height = "auto";
     iframe.style.border = "1px solid black";
@@ -740,6 +744,7 @@ async function showInfo(data) {
     const small = document.createElement("small");
     const link = document.createElement("a");
     link.setAttribute("id", "big-map");
+    link.setAttribute("target", "_blank");
     link.textContent = "Visa st\xf6rre karta";
     small.appendChild(link);
     const backButton = document.createElement("button");
@@ -790,16 +795,26 @@ function printMap(boundingBox, markerCoords, locationName) {
     bigMapEl.href = `https://www.openstreetmap.org/search?query=${locationName}/${markerCoords.latitude}/${markerCoords.longitude}`;
 }
 
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fuss5":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "scrollToTop", ()=>scrollToTop);
+function scrollToTop() {
+    scrollTo(0, 0);
+}
+
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dQPAD":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "search", ()=>search);
 var _specificEventJs = require("./specificEvent.js");
+var _scrollToTopJs = require("./scrollToTop.js");
 const searchButtonEl = document.getElementById("search-button");
 const searchEl = document.getElementById("search");
 const eventsEl = document.getElementById("events");
 const popularEl = document.getElementById("popular");
 const buttonContainerEl = document.getElementById("button-container");
+const cityEl = document.getElementById("cityName");
 const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
 const searchUrl = `https://app.ticketmaster.com/discovery/v2/events/`;
 let isOnEvent = false;
@@ -809,7 +824,9 @@ function search() {
         try {
             const response = await fetch(`${url}&city=${searchEl.value}`);
             const data = await response.json();
-            popularEl.innerHTML = `Evenemang i ${searchEl.value}`;
+            popularEl.textContent = `Evenemang i `;
+            cityEl.textContent = `${searchEl.value}`;
+            popularEl.appendChild(cityEl);
             buttonContainerEl.innerHTML = "";
             const backButton = document.createElement("button");
             backButton.textContent = "Tillbaka";
@@ -861,6 +878,7 @@ function printEvents(data) {
             const response = await fetch(searchUrl + id + apiKey);
             const data = await response.json();
             (0, _specificEventJs.showInfo)(data);
+            (0, _scrollToTopJs.scrollToTop)();
         };
         const container = document.createElement("div");
         container.classList.add("event-div");
@@ -873,6 +891,6 @@ function printEvents(data) {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./specificEvent.js":"7tafX"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./specificEvent.js":"7tafX","./scrollToTop.js":"fuss5"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
 
 //# sourceMappingURL=index.18dbc454.js.map

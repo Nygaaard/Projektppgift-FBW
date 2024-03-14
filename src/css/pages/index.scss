@@ -14,7 +14,7 @@
 .events {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
   background-color: #faf4f4;
   width: 80%;
@@ -29,6 +29,7 @@
   flex-direction: column;
   box-shadow: 1px 2px 3px 1px;
   border-radius: 5px;
+  align-items: center;
 }
 .event-div:hover {
   cursor: pointer;
@@ -54,16 +55,24 @@ h3 {
   color: #000;
 }
 .specific-event {
-  background-color: rgb(216, 216, 170);
+  background-color: rgb(230, 230, 221);
   border-radius: 10px;
 }
 .specific-event p {
   padding: 0.4rem;
   font-size: 1.3rem;
 }
+.specific-event h2,
+p {
+  margin: 1rem;
+}
 .description-text {
   width: 70%;
   text-align: center;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }
 @media all and (max-width: 1500px) {
   .event-div {
@@ -103,8 +112,5 @@ h3 {
 @media all and (max-width: 500px) {
   .event-div {
     width: calc(90% - 10px);
-  }
-  #search {
-    width: 80%;
   }
 }
