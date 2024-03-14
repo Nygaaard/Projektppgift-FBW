@@ -21,6 +21,5 @@
   @extend .button;
 }
 .search-button:hover {
-}
-.search-button:active {
+  cursor: pointer;
 }

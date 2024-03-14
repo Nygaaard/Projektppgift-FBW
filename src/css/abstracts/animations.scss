@@ -6,7 +6,7 @@
 }
 .apple:hover,
 .leaf:hover {
-  animation: fallAndBlow 2s ease forwards;
+  animation: fallAndBlow 2s ease forwards alternate;
 }
 
 .event-div:hover {
