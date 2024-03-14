@@ -357,6 +357,10 @@ footer {
   .event-div {
     width: calc(90% - 10px);
   }
+
+  #search {
+    width: 80%;
+  }
 }
 
 .apple, .leaf {
