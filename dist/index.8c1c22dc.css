@@ -98,6 +98,12 @@ body {
   }
 }
 
+@keyframes buttonColor {
+  from {
+    transform: translate();
+  }
+}
+
 .image-container {
   flex-direction: column;
   justify-content: center;
@@ -143,8 +149,11 @@ body {
 }
 
 .larger-image {
+  border-radius: 10px;
   width: 800px;
   height: auto;
+  margin-bottom: 1rem;
+  box-shadow: 2px 5px 5px 2px;
 }
 
 .female {
@@ -153,6 +162,10 @@ body {
   position: absolute;
   top: 390px;
   left: 459px;
+}
+
+.event-image {
+  border-radius: 5px;
 }
 
 @media (width <= 768px) {
@@ -176,6 +189,7 @@ body {
 
 footer {
   background-color: #eeba76;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   min-height: 60px;
@@ -190,6 +204,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   margin-bottom: .3rem;
+  padding: .7rem;
   display: flex;
 }
 
@@ -262,20 +277,6 @@ footer {
   margin-top: 2rem;
 }
 
-.search-div {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  display: flex;
-}
-
-#search {
-  width: 40%;
-  margin: 1rem auto 0;
-  padding: 5px;
-}
-
 .event-link {
   margin-top: 30px;
   padding: .1rem;
@@ -300,21 +301,19 @@ footer {
   width: 70%;
 }
 
-@media (width <= 1400px) {
+@media (width <= 1500px) {
   .event-div {
-    width: calc(40% - 20px);
+    width: calc(30% - 20px);
+  }
+
+  .events {
+    width: 100%;
   }
 }
 
-@media (width <= 1000px) {
-  .event-image {
-    width: 200px;
-  }
-}
-
-@media (width <= 800px) {
+@media (width <= 1050px) {
   .event-div {
-    width: calc(90% - 10px);
+    width: calc(40% - 10px);
   }
 
   .event-image {
@@ -347,6 +346,12 @@ footer {
   }
 }
 
+@media (width <= 500px) {
+  .event-div {
+    width: calc(90% - 10px);
+  }
+}
+
 .apple, .leaf {
   transition: transform .5s;
 }
@@ -367,19 +372,21 @@ footer {
   animation: 2s linear infinite alternate rotate;
 }
 
-.button {
+.button, .search-button {
   background-color: beige;
-  width: 100px;
-  height: 40px;
+  border-radius: 5px;
+  width: 80px;
+  height: 30px;
   margin-top: 1.5rem;
+  box-shadow: 0 1px 1px;
 }
 
-.button:hover {
+.button:hover, .search-button:hover {
   cursor: pointer;
   background-color: #d6d6b1;
 }
 
-.button:active {
+.button:active, .search-button:active {
   background-color: beige;
 }
 
@@ -392,6 +399,20 @@ footer {
   .map {
     width: 100%;
   }
+}
+
+.search-div {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  display: flex;
+}
+
+#search {
+  width: 40%;
+  margin: 1rem auto 0;
+  padding: 5px;
 }
 
 /*# sourceMappingURL=index.8c1c22dc.css.map */

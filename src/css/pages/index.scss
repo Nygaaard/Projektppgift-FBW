@@ -39,19 +39,7 @@ h3 {
 .popular {
   margin-top: 2rem;
 }
-.search-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-#search {
-  width: 40%;
-  margin: 0 auto;
-  padding: 5px;
-  margin-top: 1rem;
-}
+
 .event-link {
   margin-top: 30px;
   text-decoration: underline;
@@ -72,19 +60,17 @@ h3 {
   width: 70%;
   text-align: center;
 }
-@media all and (max-width: 1400px) {
+@media all and (max-width: 1500px) {
   .event-div {
-    width: calc(40% - 20px);
+    width: calc(30% - 20px);
+  }
+  .events {
+    width: 100%;
   }
 }
-@media all and (max-width: 1000px) {
-  .event-image {
-    width: 200px;
-  }
-}
-@media all and (max-width: 800px) {
+@media all and (max-width: 1050px) {
   .event-div {
-    width: calc(90% - 10px);
+    width: calc(40% - 10px);
   }
   .event-image {
     width: 80%;
@@ -107,5 +93,10 @@ h3 {
   }
   #search {
     width: 60%;
+  }
+}
+@media all and (max-width: 500px) {
+  .event-div {
+    width: calc(90% - 10px);
   }
 }

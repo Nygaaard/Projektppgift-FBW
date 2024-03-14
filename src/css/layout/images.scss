@@ -43,6 +43,9 @@
 .larger-image {
   width: 800px;
   height: auto;
+  border-radius: 10px;
+  box-shadow: 2px 5px 5px 2px;
+  margin-bottom: 1rem;
 }
 .female {
   width: 70px;
@@ -50,6 +53,9 @@
   position: absolute;
   top: 390;
   left: 459;
+}
+.event-image {
+  border-radius: 5px;
 }
 
 @media all and (max-width: 768px) {

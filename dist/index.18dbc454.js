@@ -814,7 +814,7 @@ function printEvents(data) {
     eventsEl.innerHTML = "";
     if (!data._embedded) {
         popularEl.innerHTML = "";
-        eventsEl.innerHTML = "Finns inga evenemeng i denna stad f\xf6r tillf\xe4llet";
+        eventsEl.innerHTML = "Finns inga evenemeng i denna stad f\xf6r tillf\xe4llet.<br>F\xf6rs\xf6k igen!";
         return;
     }
     for(let i = 0; i < data._embedded.events.length; i++){

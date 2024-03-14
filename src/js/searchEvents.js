@@ -24,7 +24,8 @@ function printEvents(data) {
   eventsEl.innerHTML = "";
   if (!data._embedded) {
     popularEl.innerHTML = "";
-    eventsEl.innerHTML = "Finns inga evenemeng i denna stad för tillfället";
+    eventsEl.innerHTML =
+      "Finns inga evenemeng i denna stad för tillfället.<br>Försök igen!";
     return;
   }
 
