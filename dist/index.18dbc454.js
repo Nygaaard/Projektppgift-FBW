@@ -792,11 +792,14 @@ function printMap(boundingBox, markerCoords, locationName) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "search", ()=>search);
+var _specificEventJs = require("./specificEvent.js");
 const searchButtonEl = document.getElementById("search-button");
 const searchEl = document.getElementById("search");
 const eventsEl = document.getElementById("events");
 const popularEl = document.getElementById("popular");
 const buttonContainerEl = document.getElementById("button-container");
+const apiKey = ".json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq";
+const searchUrl = `https://app.ticketmaster.com/discovery/v2/events/`;
 let isOnEvent = false;
 const url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=IipxTlBL6unLSwOTxDEwtCUpqQ4kyOsq&countryCode=SE&size=172";
 function search() {
@@ -804,6 +807,15 @@ function search() {
         try {
             const response = await fetch(`${url}&city=${searchEl.value}`);
             const data = await response.json();
+            popularEl.innerHTML = `Evenemang i ${searchEl.value}`;
+            buttonContainerEl.innerHTML = "";
+            const backButton = document.createElement("button");
+            backButton.textContent = "Tillbaka";
+            backButton.classList.add("button");
+            backButton.addEventListener("click", function() {
+                location.reload();
+            });
+            buttonContainerEl.appendChild(backButton);
             printEvents(data);
         } catch (error) {
             console.log("Error", error);
@@ -844,9 +856,9 @@ function printEvents(data) {
         linkElement.classList.add("event-link");
         linkElement.onclick = async function() {
             isOnEvent = true;
-            const response = await fetch(url + id + apiKey);
+            const response = await fetch(searchUrl + id + apiKey);
             const data = await response.json();
-            showInfo(data);
+            (0, _specificEventJs.showInfo)(data);
         };
         const container = document.createElement("div");
         container.classList.add("event-div");
@@ -857,15 +869,8 @@ function printEvents(data) {
         container.appendChild(linkElement);
         eventsEl.appendChild(container);
     }
-    const backButton = document.createElement("button");
-    backButton.textContent = "Tillbaka";
-    backButton.classList.add("button");
-    backButton.addEventListener("click", function() {
-        location.reload();
-    });
-    buttonContainerEl.appendChild(backButton);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./specificEvent.js":"7tafX"}]},["iqNlW","1SICI"], "1SICI", "parcelRequiree0ba")
 
 //# sourceMappingURL=index.18dbc454.js.map
