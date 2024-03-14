@@ -53,7 +53,10 @@ h3 {
 .event-link:active {
   color: #000;
 }
-
+.specific-event {
+  background-color: rgb(216, 216, 170);
+  border-radius: 10px;
+}
 .specific-event p {
   padding: 0.4rem;
   font-size: 1.3rem;

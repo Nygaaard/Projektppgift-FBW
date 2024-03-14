@@ -46,9 +46,11 @@ export async function showInfo(data) {
   priceParagraph.textContent = price;
 
   const ticketParagraph = document.createElement("p");
+  ticketParagraph.classList.add("ticket-paragraph");
   ticketParagraph.innerHTML = `Mer info om biljetter hittar du <a href="${ticket}" target="_blank">här</a>`;
 
   const mapContainer = document.createElement("div");
+  mapContainer.classList.add("map-container");
 
   var iframe = document.createElement("iframe");
   iframe.width = "600";

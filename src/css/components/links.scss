@@ -1,0 +1,22 @@
+@use "../abstracts/variables";
+
+#big-map {
+  font-size: 1rem;
+  color: #000;
+}
+#big-map:hover {
+  color: variables.$linkHoverColor;
+}
+#big-map:active {
+  color: #000;
+}
+
+.ticket-paragraph a {
+  color: #000;
+}
+.ticket-paragraph a:hover {
+  color: variables.$linkHoverColor;
+}
+.ticket-paragraph a {
+  color: #000;
+}

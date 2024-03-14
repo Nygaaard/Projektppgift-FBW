@@ -293,6 +293,11 @@ footer {
   color: #000;
 }
 
+.specific-event {
+  background-color: #d8d8aa;
+  border-radius: 10px;
+}
+
 .specific-event p {
   padding: .4rem;
   font-size: 1.3rem;
@@ -397,8 +402,17 @@ footer {
 }
 
 .map {
+  border-radius: 5px;
   width: 500px;
   height: 360px;
+}
+
+.map-container {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: .5rem;
+  display: flex;
 }
 
 @media (width <= 768px) {
@@ -421,6 +435,27 @@ footer {
   margin: 1rem auto 0;
   padding: 5px;
   box-shadow: 1px 0;
+}
+
+#big-map {
+  color: #000;
+  font-size: 1rem;
+}
+
+#big-map:hover {
+  color: #686464;
+}
+
+#big-map:active, .ticket-paragraph a {
+  color: #000;
+}
+
+.ticket-paragraph a:hover {
+  color: #686464;
+}
+
+.ticket-paragraph a {
+  color: #000;
 }
 
 /*# sourceMappingURL=index.8c1c22dc.css.map */
