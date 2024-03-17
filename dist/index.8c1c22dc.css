@@ -368,10 +368,6 @@ footer {
   }
 }
 
-.apple, .leaf {
-  transition: transform .5s;
-}
-
 .apple:hover, .leaf:hover {
   animation: 2s alternate forwards fallAndBlow;
 }

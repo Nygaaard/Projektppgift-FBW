@@ -32,7 +32,6 @@ export function search() {
       backButton.addEventListener("click", function () {
         location.reload();
       });
-
       buttonContainerEl.appendChild(backButton);
       printEvents(data);
     } catch (error) {

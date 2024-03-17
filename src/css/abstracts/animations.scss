@@ -1,9 +1,5 @@
 @use "./keyframes";
 
-.apple,
-.leaf {
-  transition: transform 0.5s ease;
-}
 .apple:hover,
 .leaf:hover {
   animation: fallAndBlow 2s ease forwards alternate;
